@@ -290,87 +290,7 @@
 
              $(function() {
 
-                
-                
-            //     /*
-            //      * LINE CHART
-            //      * ----------
-            //      */
-            //     //LINE randomly generated data
-
-            //     var sin = [], cos = [];
-            //     for (var i = 0; i < 14; i += 0.5) {
-            //         sin.push([i, Math.sin(i)]);
-            //         cos.push([i, Math.cos(i)]);
-            //     }
-            //     var line_data1 = {
-            //         data: sin,
-            //         color: "#3c8dbc"
-            //     };
-            //     var line_data2 = {
-            //         data: cos,
-            //         color: "#00c0ef"
-            //     };
-            //     $.plot("#line-chart", [line_data1, line_data2], {
-            //         grid: {
-            //             hoverable: true,
-            //             borderColor: "#f3f3f3",
-            //             borderWidth: 1,
-            //             tickColor: "#f3f3f3"
-            //         },
-            //         series: {
-            //             shadowSize: 0,
-            //             lines: {
-            //                 show: true
-            //             },
-            //             points: {
-            //                 show: true
-            //             }
-            //         },
-            //         lines: {
-            //             fill: false,
-            //             color: ["#3c8dbc", "#f56954"]
-            //         },
-            //         yaxis: {
-            //             show: true,
-            //         },
-            //         xaxis: {
-            //             show: true
-            //         }
-            //     });
-            //     //Initialize tooltip on hover
-            //     $("<div class='tooltip-inner' id='line-chart-tooltip'></div>").css({
-            //         position: "absolute",
-            //         display: "none",
-            //         opacity: 0.8
-            //     }).appendTo("body");
-            //     $("#line-chart").bind("plothover", function(event, pos, item) {
-
-            //         if (item) {
-            //             var x = item.datapoint[0].toFixed(2),
-            //                     y = item.datapoint[1].toFixed(2);
-
-            //             $("#line-chart-tooltip").html(item.series.label + " of " + x + " = " + y)
-            //                     .css({top: item.pageY + 5, left: item.pageX + 5})
-            //                     .fadeIn(200);
-            //         } else {
-            //             $("#line-chart-tooltip").hide();
-            //         }
-
-            //     });
-                /* END LINE CHART */
-
-               
-
-                /*
-                 * DONUT CHART
-                 * -----------
-                 */
-
-                
-                /*
-                 * END DONUT CHART
-                 */
+				//BLANK
 
             });
 
@@ -500,27 +420,27 @@ function bounceRate(){
     }
 
     var bounce = (incomplete/(incomplete+complete))*100;
-   // console.log("incomplete:"+incomplete + ",complete: " + complete);
+   
     $('#bouncerate').html('<h3>'+Math.round(bounce)+'%</h3>');
     $('#incompletejourneys').html('<h3>'+Math.round(bounce)+'%</h3>');
     $('#completejourneys').html('<h3>'+Math.round(100-bounce)+'%</h3>');
 }
 function pieChart(){
-    console.log('***********************');
-    //console.log(dat0);
-    console.log('***********************');
+    
+	//dat0 contains csv data
+	//finArray contains selected items from dat0
     var finArray = [];
     var finArray2 = new Array();
     var minItemPair = new Object();
-    //console.log(dat0.length);
+    
     for(var i=1; i<=dat0.length-1;i++){
-      //  console.log("dat0[i-1][2]:"+dat0[i-1][2].substring(1,11)+",dat0[i][2]:"+dat0[i][2]);
+      
          finArray.push(dat0[i][0]);
         
     }
     console.log("fin bar chart:"+finArray)
     var a = [], b = [], prev;
-
+	//a has buttons, b has number of times the button is clicked
     finArray.sort();
     for ( var i = 0; i < finArray.length; i++ ) {
         if ( finArray[i] !== prev ) {
@@ -531,52 +451,49 @@ function pieChart(){
         }
         prev = finArray[i];
     }
-    console.log(a);
-    console.log(b);
     var donutData = [];
     for(var i=0;i<a.length;i++){
 
         donutData.push({label: a[i], data: b[i]});
     }
-    console.log(donutData[0])
-        
-                $.plot("#donut-chart", donutData, {
-                    series: {
-                        pie: {
-                            show: true,
-                            radius: 1,
-                            innerRadius: 0,
-                            label: {
-                                show: true,
-                                radius: 2 / 3,
-                                formatter: labelFormatter,
-                                threshold: 0.1
-                            }
+    
+    /* START PIE CHART */
+	$.plot("#donut-chart", donutData, {
+		series: {
+			pie: {
+				show: true,
+				radius: 1,
+				innerRadius: 0,
+				label: {
+					show: true,
+					radius: 2 / 3,
+					formatter: labelFormatter,
+					threshold: 0.1
+				}
 
-                        }
-                    },
-                    legend: {
-                        show: true
-                    }
-                });
-                /* END PIE CHART */
+			}
+		},
+		legend: {
+			show: true
+		}
+	});
+	/* END PIE CHART */
     
 
 }
 
 function barChart(){
-    console.log('***********************');
-    //console.log(dat0);
-    console.log('***********************');
+    //finArray has required data, here buttons
+	//dat0 has the csv data
     var finArray = [];
     var finArray2 = new Array();
     var minItemPair = new Object();
-    //console.log(dat0.length);
+    
     for(var i=dat0.length-1; i>=2;i--){
-      //  console.log("dat0[i-1][2]:"+dat0[i-1][2].substring(1,11)+",dat0[i][2]:"+dat0[i][2]);
+      
         if(dat0[i-1][2].substring(1,11)==dat0[i][2].substring(1,11)){
            finArray.push(dat0[i-1][0]);
-         //  console.log("fin bar chart:"+finArray);
+         
         }
         else{
             finArray.push(dat0[i][0]);
@@ -584,9 +501,10 @@ function barChart(){
         }
     
     }
-    console.log("fin bar chart:"+finArray)
+    
     var a = [], b = [], prev;
-
+	//a is array of buttons
+	//b is number of times the buttons were clicked
     finArray.sort();
     for ( var i = 0; i < finArray.length; i++ ) {
         if ( finArray[i] !== prev ) {
@@ -597,14 +515,18 @@ function barChart(){
         }
         prev = finArray[i];
     }
-    console.log(a);
-    console.log(b);
+    
+	
     var bar_data = [];
     for(var i=0;i<a.length;i++){
 
         bar_data.push([a[i],b[i]]);
     }
 
+	/*
+		START BAR CHART
+	*/
+	
         $.plot("#line-chart", [bar_data], {
         grid: {
             borderWidth: 1,
@@ -629,10 +551,9 @@ function barChart(){
 }
 function frequentlyLastUsedItem(){
 
-   // console.log("....."+dat0[1]);
-    
+   
+    //finaArray has all the buttons which led to bounce of application
     var finArray = [];
-    var finArray2 = new Array();
     
     for(var i=1; i<=dat0.length-1;i++){
         
@@ -644,8 +565,8 @@ function frequentlyLastUsedItem(){
     
     }
     
-   // console.log(finArray);
-
+	//a is array of buttons
+	//b is number of times the buttons were clicked
     var a = [], b = [], prev;
 
     finArray.sort();
@@ -673,11 +594,6 @@ function frequentlyLastUsedItem(){
         }
 
     }
-
-
-
-
-
 
     $('#frequentlylast').html('<h3>'+maxItem+'</h3>');
 }
